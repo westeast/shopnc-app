@@ -46,4 +46,18 @@
         </PreferenceScreen>
     </PreferenceCategory>
 
+
+    <PreferenceCategory
+        android:title="exit">
+        <Preference
+            android:title="退出登录"/>
+        <PreferenceScreen
+            android:summary="从一个意图中启动一个activity"
+            android:title="意图首选项" >
+            <intent
+                android:action="android.intent.action.VIEW"
+                android:data="http://www.baidu.com" />
+        </PreferenceScreen>
+    </PreferenceCategory>
+
 </PreferenceScreen>
