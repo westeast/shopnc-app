@@ -2,6 +2,83 @@
 <items version="2" >
 
     <item
+<<<<<<< HEAD
+        jar="F:\DigDream\shopnc-app\Src\app\build\intermediates\exploded-aar\com.android.support\support-v4\22.2.1\jars\classes.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="f8efd0096475e0daf054267b61544e10dc776503">
+        <dex dex="F:\DigDream\shopnc-app\Src\app\build\intermediates\pre-dexed\debug\classes-85f943da6e621bba49c5347db8c72de4d1127ed1.jar" />
+    </item>
+    <item
+        jar="C:\Users\dell-pc\.gradle\caches\modules-2\files-2.1\cn.trinea.android.view.autoscrollviewpager\android-auto-scroll-view-pager\1.1.2\8ad9237a8b0965696ea32ca9c1de173e082eaad4\android-auto-scroll-view-pager-1.1.2.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="8ad9237a8b0965696ea32ca9c1de173e082eaad4">
+        <dex dex="F:\DigDream\shopnc-app\Src\app\build\intermediates\pre-dexed\debug\android-auto-scroll-view-pager-1.1.2-0e2c093a144345057f16967e319435a9227cf1e0.jar" />
+    </item>
+    <item
+        jar="E:\JVVA-\android-sdk-windows\extras\android\m2repository\com\android\support\support-annotations\22.2.1\support-annotations-22.2.1.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="61a0ff5c29295ec56d7e0bd3d25d95dbf71b4b2b">
+        <dex dex="F:\DigDream\shopnc-app\Src\app\build\intermediates\pre-dexed\debug\support-annotations-22.2.1-4a49453ebc504724a1fc3e0a9cfdcafa7278ce1b.jar" />
+    </item>
+    <item
+        jar="F:\DigDream\shopnc-app\Src\app\build\intermediates\exploded-aar\com.android.support\support-v4\22.2.1\jars\libs\internal_impl-22.2.1.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="c471eaaba13ff64f6e0383d1c30a9cdc9a97efeb">
+        <dex dex="F:\DigDream\shopnc-app\Src\app\build\intermediates\pre-dexed\debug\internal_impl-22.2.1-85a7ffadae2a6c430a8d55a7c5e4573858caf0ca.jar" />
+    </item>
+    <item
+        jar="F:\DigDream\shopnc-app\Src\app\build\intermediates\exploded-aar\com.android.support\appcompat-v7\22.2.1\jars\classes.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="4486e953d1f35f8ccab098b1dd67146366d5f731">
+        <dex dex="F:\DigDream\shopnc-app\Src\app\build\intermediates\pre-dexed\debug\classes-b5aa915e6eb1166a810c1f2e36070731cf14a303.jar" />
+    </item>
+    <item
+        jar="C:\Users\dell-pc\.gradle\caches\modules-2\files-2.1\com.google.guava\guava\18.0\cce0823396aa693798f8882e64213b1772032b09\guava-18.0.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="cce0823396aa693798f8882e64213b1772032b09">
+        <dex dex="F:\DigDream\shopnc-app\Src\app\build\intermediates\pre-dexed\debug\guava-18.0-3dfdba3980a99d506442d312c28320a7b1a43cd4.jar" />
+    </item>
+    <item
+        jar="F:\DigDream\shopnc-app\Src\app\build\intermediates\exploded-aar\com.getbase\floatingactionbutton\1.10.0\jars\classes.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="078cad8ebaa25b1eb1790bd622b3a8ae27c9cc7a">
+        <dex dex="F:\DigDream\shopnc-app\Src\app\build\intermediates\pre-dexed\debug\classes-d4fe459b0f3a504a5725a68b5b49395c17020396.jar" />
+    </item>
+    <item
+        jar="F:\DigDream\shopnc-app\Src\app\build\intermediates\exploded-aar\in.srain.cube\cube-sdk\1.0.44\jars\classes.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="ab3e30bc50e6b7f859b4971bfc897cd107a7b6c5">
+        <dex dex="F:\DigDream\shopnc-app\Src\app\build\intermediates\pre-dexed\debug\classes-feaa43a072cfdff739c5876c340b3a205fbb71a3.jar" />
+    </item>
+    <item
+        jar="C:\Users\dell-pc\.gradle\caches\modules-2\files-2.1\com.mcxiaoke.volley\library\1.0.18\38da306aafee11459cd935a01d2c92a98dc670a4\library-1.0.18.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="38da306aafee11459cd935a01d2c92a98dc670a4">
+        <dex dex="F:\DigDream\shopnc-app\Src\app\build\intermediates\pre-dexed\debug\library-1.0.18-c3f23524dc303db34ee5c45ecb5aaa06ece29f45.jar" />
+    </item>
+    <item
+        jar="F:\DigDream\shopnc-app\Src\app\build\intermediates\exploded-aar\in.srain.cube\ultra-ptr\1.0.10\jars\classes.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="f7aa9a64408679b54260b859ae8eb723b69ecd30">
+        <dex dex="F:\DigDream\shopnc-app\Src\app\build\intermediates\pre-dexed\debug\classes-8454a8ad12a6aa87f162a6a1fbc1a5895cf4beee.jar" />
+    </item>
+    <item
+        jar="C:\Users\dell-pc\.gradle\caches\modules-2\files-2.1\org.robobinding\robobinding\0.8.10\528d6281125287115837689333b9bbede4fdfd13\robobinding-0.8.10.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="528d6281125287115837689333b9bbede4fdfd13">
+        <dex dex="F:\DigDream\shopnc-app\Src\app\build\intermediates\pre-dexed\debug\robobinding-0.8.10-a3a1716c3a9f596482fc170ed803886f67abb104.jar" />
+=======
         jar="E:\Project\shopnc-app\Src\app\build\intermediates\exploded-aar\com.andreabaccega\android-form-edittext\1.2.1\jars\classes.jar"
         jumboMode="false"
         revision="22.0.1"
@@ -91,6 +168,7 @@
         revision="22.0.1"
         sha1="8ad9237a8b0965696ea32ca9c1de173e082eaad4">
         <dex dex="E:\Project\shopnc-app\Src\app\build\intermediates\pre-dexed\debug\android-auto-scroll-view-pager-1.1.2-910de5f71de61fc0467fece1b564b34088f1ee08.jar" />
+>>>>>>> 0090f52b70cdf5c76f6111284dfa704adb6745d2
     </item>
 
 </items>

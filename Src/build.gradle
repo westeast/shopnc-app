@@ -5,7 +5,12 @@ buildscript {
         jcenter()
     }
     dependencies {
+<<<<<<< HEAD
         classpath 'com.android.tools.build:gradle:1.2.2'
+=======
+        //如果使用gradle2.2版本，请改为gradle:0.14.+
+        classpath 'com.android.tools.build:gradle:1.2.3'
+>>>>>>> 0f0b42d6c6e3315cdefec5a01d23b94a7c348a65
 
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
