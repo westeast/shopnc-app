@@ -2,7 +2,14 @@
 这是一些为Shopnc网站设计的APP客户端，目前正在设计Android端。
 ##预览
 
-![](Picture/20150803.png)
++ login ![](Psd/app-login.jpg)
++ home ![](Psd/app-home.jpg)
++ circle ![](Psd/app-circle.jpg)
++ circle-home ![](Psd/app-circle-home.jpg)
++ circle-theme ![](Psd/app-circle-theme.jpg)
++ trade ![](Psd/app-trade.jpg)
++ task ![](Psd/app-task.jpg)
++ user-center ![](Psd/app-user-center.jpg)
 
 ##功能
 
