@@ -2,8 +2,8 @@
 这是一些为Shopnc网站设计的APP客户端，目前正在设计Android端。
 ##预览
 
-+ login ![](Psd/app-login.jpg)
-+ home ![](Psd/app-home.jpg)
++ login ![](Psd/app-login.jpg){:height="36px" width="36px"}.
++ home ![](Psd/app-home.jpg = 250x)
 + circle ![](Psd/app-circle.jpg)
 + circle-home ![](Psd/app-circle-home.jpg)
 + circle-theme ![](Psd/app-circle-theme.jpg)
