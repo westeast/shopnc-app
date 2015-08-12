@@ -1,22 +1,37 @@
 package com.daxueoo.shopnc.utils;
 
 /**
+ * 常量类
  * Created by user on 15-8-2.
  */
 public class ConstUtils {
 
+    //  客户端类型
     public static final String CLIENT_TYPE = "android";
 
-    public static final String web_type_mall = "mall";
+    //  商城类型
+    public static final String WEB_TYPE_MALL = "mall";
 
-    public static final String web_type_circle = "circle";
+    //  圈子类型
+    public static final String WEB_TYPE_CIRCLE = "circle";
 
-    public static final String url_api_shopnc = "http://daxueoo.com:8080/mobile";
+    //  首页地址
+    public static final String URL_WAP_SHOPNC = "http://daxueoo.com:8080/mobile";
 
-    public static final String url_wap_shopnc = "http://daxueoo.com:8080/wap";
+    public static final String URL_WAP_THEME = "";
 
-    public static final String login_url = url_api_shopnc + "/index.php?act=login";
+    public static final String URL_API_SHOPNC = "http://daxueoo.com:9091/api";
 
-    public static final String register_url = url_api_shopnc + "/index.php?act=login&op=register";
+    //  用户登录地址
+    public static final String LOGIN_URL = URL_WAP_SHOPNC + "/index.php?act=login";
+
+    //  用户注册地址
+    public static final String REGISTER_URL = URL_WAP_SHOPNC + "/index.php?act=login&op=register";
+
+    //  圈子api地址
+    public static final String CIRCLE_URL = URL_API_SHOPNC + "/index.php?act=circle&op=";
+
+    //  圈子热门话题
+    public static final String HOT_THEME = CIRCLE_URL + "get_reply_themelist";
 
 }

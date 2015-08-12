@@ -8,11 +8,11 @@ import android.view.WindowManager;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
 
-import com.daxueoo.shopnc.MainActivity;
 import com.daxueoo.shopnc.R;
 import com.daxueoo.shopnc.utils.SharedPreferencesUtils;
 
 /**
+ * 入口Activity，渐变，由浅入深，持续2S，如果第一次启动就跳向引导页
  * Created by user on 15-8-2.
  */
 public class SplashActivity extends BaseActivity {
@@ -23,6 +23,7 @@ public class SplashActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        //  全屏，取消标题
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
@@ -36,18 +37,20 @@ public class SplashActivity extends BaseActivity {
 
             @Override
             public void onAnimationEnd(Animation arg0) {
-                Intent intent;
+
+                Intent intent = new Intent();
+
+                //  是否是第一次进行跳转
                 if ((Boolean) SharedPreferencesUtils.getParam(SplashActivity.this, "isFirst", isFirst)) {
-                    intent = new Intent(SplashActivity.this, ScollerViewActivity.class);
-                    startActivity(intent);
+                    intent.setClass(SplashActivity.this, GuideActivity.class);
                     isFirst = false;
                     SharedPreferencesUtils.setParam(SplashActivity.this, "isFirst", isFirst);
-                    finish();
                 } else {
                     intent = new Intent(SplashActivity.this, MainTabActivity.class);
-                    startActivity(intent);
-                    finish();
                 }
+
+                startActivity(intent);
+                finish();
             }
 
             @Override

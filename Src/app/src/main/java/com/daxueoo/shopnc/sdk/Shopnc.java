@@ -24,12 +24,17 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
+ * 放置关于与数据通信的一些方法，与服务器端进行通信等。
  * Created by user on 15-8-2.
  */
 public class Shopnc {
 
     public static final String TAG = "WorktileSdk";
 
+    /**
+     * 判断是否登录的方法
+     * @param context
+     */
     public static void isLogin(final Context context) {
         if (SharedPreferencesUtils.getParam(context, "key", "false").equals("false")) {
             AlertDialog.Builder builder = new AlertDialog.Builder(context);  //先得到构造器
@@ -56,13 +61,20 @@ public class Shopnc {
         }
     }
 
+    /**
+     * 登录方法，返回信息
+     * @param context
+     * @param username
+     * @param password
+     * @param type
+     */
     public static void login(final Context context, String username, String password, String type) {
         final RequestQueue requestQueue = Volley.newRequestQueue(context);
         Map<String, String> map = new HashMap<String, String>();
         map.put("username", username);
         map.put("password", password);
         map.put("client", type);
-        final Request<JSONObject> request = new NormalPostRequest(ConstUtils.login_url, new Response.Listener<JSONObject>() {
+        final Request<JSONObject> request = new NormalPostRequest(ConstUtils.LOGIN_URL, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
                 try {
@@ -87,6 +99,14 @@ public class Shopnc {
         requestQueue.add(request);
     }
 
+    /**
+     * 注册POST表单
+     * @param context
+     * @param username
+     * @param password
+     * @param email
+     * @param type
+     */
     public static void register(final Context context, String username, String password, String email, String type) {
         final RequestQueue requestQueue = Volley.newRequestQueue(context);
         Map<String, String> map = new HashMap<String, String>();
@@ -95,7 +115,7 @@ public class Shopnc {
         map.put("password_confirm", password);
         map.put("email", email);
         map.put("client", type);
-        final Request<JSONObject> request = new NormalPostRequest(ConstUtils.register_url, new Response.Listener<JSONObject>() {
+        final Request<JSONObject> request = new NormalPostRequest(ConstUtils.REGISTER_URL, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
                 try {

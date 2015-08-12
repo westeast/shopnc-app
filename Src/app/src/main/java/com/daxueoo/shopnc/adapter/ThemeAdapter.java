@@ -23,8 +23,6 @@ import com.daxueoo.shopnc.widgets.RelativeTimeTextView;
 
 import java.util.List;
 
-import uk.co.senab.photoview.PhotoViewAttacher;
-
 /**
  * Created by user on 15-7-30.
  */

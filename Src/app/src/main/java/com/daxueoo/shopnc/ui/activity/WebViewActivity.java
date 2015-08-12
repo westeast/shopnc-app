@@ -13,30 +13,39 @@ import com.daxueoo.shopnc.R;
 import com.daxueoo.shopnc.utils.ConstUtils;
 
 /**
+ * 关于WebView的Activity，商城，圈子等
  * Created by user on 15-8-2.
  */
 public class WebViewActivity extends BaseActivity {
-    private WebView webview;
-    private String url;
-
-    private String type;
 
     private String TAG = "WebViewActivity";
+
+    private WebView webview;
+
+    private String url;
+    private String type;
+
     private RelativeLayout relativeLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_web_view);
+
         Intent intent = getIntent();
+        //  获取传入的参数url和类型
         url = intent.getStringExtra("url");
         type = intent.getStringExtra("type");
+
         webview = (WebView) findViewById(R.id.webview);
         relativeLayout = (RelativeLayout) findViewById(R.id.rl_titlebar);
+
         initWebView();
     }
 
-    //Web视图
+    /**
+     * WebViewClient
+     */
     private class MyWebViewClient extends WebViewClient {
         @Override
         public boolean shouldOverrideUrlLoading(WebView view, String url) {
@@ -54,20 +63,23 @@ public class WebViewActivity extends BaseActivity {
         }
     }
 
+    /**
+     * 初始化WebView视图
+     */
     private void initWebView() {
-        //设置WebView属性，能够执行Javascript脚本
+        //  设置WebView属性，能够执行Javascript脚本
         webview.getSettings().setJavaScriptEnabled(true);
-        //加载需要显示的网页
+        //  加载需要显示的网页
         webview.loadUrl(url);
-        //设置Web视图
+        //  设置Web视图
         webview.setWebViewClient(new MyWebViewClient());
 
+        //  判断类型
         switch (type) {
-            case ConstUtils.web_type_mall:
+            case ConstUtils.WEB_TYPE_MALL:
                 relativeLayout.setVisibility(View.GONE);
-                Log.e(TAG, "test");
                 break;
-            case ConstUtils.web_type_circle:
+            case ConstUtils.WEB_TYPE_CIRCLE:
                 Log.e(TAG, type);
                 break;
             default:
@@ -76,8 +88,9 @@ public class WebViewActivity extends BaseActivity {
     }
 
     @Override
-    //设置回退
-    //覆盖Activity类的onKeyDown(int keyCoder,KeyEvent event)方法
+    /**
+     * 设置回退,覆盖Activity类的onKeyDown(int keyCoder,KeyEvent event)方法
+     */
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if ((keyCode == KeyEvent.KEYCODE_BACK) && webview.canGoBack()) {
             webview.goBack();

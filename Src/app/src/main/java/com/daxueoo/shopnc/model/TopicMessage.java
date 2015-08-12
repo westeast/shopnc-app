@@ -1,6 +1,7 @@
 package com.daxueoo.shopnc.model;
 
 /**
+ * 话题的模型类
  * Created by user on 15-8-2.
  */
 public class TopicMessage {

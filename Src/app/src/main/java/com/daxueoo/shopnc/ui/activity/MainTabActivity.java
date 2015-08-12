@@ -1,12 +1,9 @@
 package com.daxueoo.shopnc.ui.activity;
 
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTabHost;
-import android.support.v7.app.AlertDialog;
-import android.util.Log;
 import android.widget.RadioGroup;
 import android.widget.TabHost;
 
@@ -18,19 +15,21 @@ import com.daxueoo.shopnc.ui.fragment.MallFragment;
 import com.daxueoo.shopnc.ui.fragment.TradeFragment;
 import com.daxueoo.shopnc.ui.fragment.UserFragment;
 import com.daxueoo.shopnc.utils.ConstUtils;
-import com.daxueoo.shopnc.utils.SharedPreferencesUtils;
 
 /**
+ * 主页的Activity.FragmentTabHost设置跳转
  * Created by user on 15-8-2.
  */
 public class MainTabActivity extends FragmentActivity {
 
     private String TAG = "MainTabActivity";
 
-    // 定义FragmentTabHost对象
-    private FragmentTabHost mTabHost;
-    private RadioGroup mTabRg;
+    //  定义FragmentTabHost对象
+    private FragmentTabHost fragmentTabHost;
+    //  单选
+    private RadioGroup radioGroup;
 
+    //  定义那些Fragment
     private final Class[] fragments = {HomeFragment.class, MallFragment.class, CircleFragment.class, TradeFragment.class, UserFragment.class};
 
     @Override
@@ -40,46 +39,52 @@ public class MainTabActivity extends FragmentActivity {
         initView();
     }
 
+    /**
+     * 初始化视图
+     */
     private void initView() {
-        mTabHost = (FragmentTabHost) findViewById(android.R.id.tabhost);
-        mTabHost.setup(this, getSupportFragmentManager(), R.id.fl_content);
+
+        fragmentTabHost = (FragmentTabHost) findViewById(android.R.id.tabhost);
+        fragmentTabHost.setup(this, getSupportFragmentManager(), R.id.fl_content);
+
         // 得到fragment的个数
         int count = fragments.length;
         for (int i = 0; i < count; i++) {
             // 为每一个Tab按钮设置图标、文字和内容
-            TabHost.TabSpec tabSpec = mTabHost.newTabSpec(i + "").setIndicator(i + "");
+            TabHost.TabSpec tabSpec = fragmentTabHost.newTabSpec(i + "").setIndicator(i + "");
             // 将Tab按钮添加进Tab选项卡中
-            mTabHost.addTab(tabSpec, fragments[i], null);
+            fragmentTabHost.addTab(tabSpec, fragments[i], null);
         }
 
-        mTabRg = (RadioGroup) findViewById(R.id.rg_tab);
-        mTabRg.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+        radioGroup = (RadioGroup) findViewById(R.id.rg_tab);
+        radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
 
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
                 switch (checkedId) {
+                    //  首页
                     case R.id.rb_home:
-                        mTabHost.setCurrentTab(0);
+                        fragmentTabHost.setCurrentTab(0);
                         break;
+                    //  商城
                     case R.id.rb_mall:
-                        Intent intent = new Intent();
-                        intent.setClass(MainTabActivity.this, WebViewActivity.class);
-                        intent.putExtra("url", ConstUtils.url_wap_shopnc);
-                        intent.putExtra("type", ConstUtils.web_type_mall);
-                        startActivity(intent);
-                        finish();
-                        //mTabHost.setCurrentTab(1);
+                        //  跳转到WebViewActivity
+                        toWebViewActivity();
+                        //  mTabHost.setCurrentTab(1);
                         break;
+                    //  圈子
                     case R.id.rb_circle:
-                        mTabHost.setCurrentTab(2);
+                        fragmentTabHost.setCurrentTab(2);
                         break;
+                    //  交易
                     case R.id.rb_trade:
-                        mTabHost.setCurrentTab(3);
+                        fragmentTabHost.setCurrentTab(3);
                         break;
+                    //  个人中心
                     case R.id.rb_user:
                         //这里判断是否有token，然后弹出对话框
                         Shopnc.isLogin(MainTabActivity.this);
-                        mTabHost.setCurrentTab(4);
+                        fragmentTabHost.setCurrentTab(4);
                         break;
                     default:
                         break;
@@ -87,6 +92,18 @@ public class MainTabActivity extends FragmentActivity {
             }
         });
 
-        mTabHost.setCurrentTab(0);
+        fragmentTabHost.setCurrentTab(0);
+    }
+
+    /**
+     * 跳转到WebViewActivity，暂时商城用
+     */
+    private void toWebViewActivity() {
+        Intent intent = new Intent();
+        intent.setClass(MainTabActivity.this, WebViewActivity.class);
+        intent.putExtra("url", ConstUtils.URL_WAP_SHOPNC);
+        intent.putExtra("type", ConstUtils.WEB_TYPE_MALL);
+        startActivity(intent);
+        finish();
     }
 }

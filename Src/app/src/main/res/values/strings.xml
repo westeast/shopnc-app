@@ -26,5 +26,7 @@
     <string name="tv_register">新用户注册</string>
 
     <string name="tv_setting">设置</string>
+
+    <string name="network_fail">网络错误</string>
     
 </resources>
