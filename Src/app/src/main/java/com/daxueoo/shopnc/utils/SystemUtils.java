@@ -2,10 +2,15 @@ package com.daxueoo.shopnc.utils;
 
 import android.app.Activity;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListAdapter;
 import android.widget.ListView;
+
+import com.daxueoo.shopnc.model.BaseMessage;
+
+import org.json.JSONObject;
 
 /**
  * Created by user on 15-8-3.
@@ -26,6 +31,7 @@ public class SystemUtils {
     /**
      * 在scrollview里
      * 动态设置ListView高度
+     *
      * @param listView
      */
     public static void setListViewHeightBasedOnChildren(ListView listView) {
@@ -42,6 +48,12 @@ public class SystemUtils {
         ViewGroup.LayoutParams params = listView.getLayoutParams();
         params.height = totalHeight + (listView.getDividerHeight() * (listAdapter.getCount() - 1));
         params.height += 5;//if without this statement,the listview will be a little short
+        Log.e("tag", String.valueOf(params.height));
         listView.setLayoutParams(params);
+    }
+
+    public static BaseMessage getMessage(String jsonStr) throws Exception {
+        BaseMessage message = new BaseMessage();
+        return message;
     }
 }

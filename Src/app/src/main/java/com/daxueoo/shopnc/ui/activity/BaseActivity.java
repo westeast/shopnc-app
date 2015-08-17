@@ -2,6 +2,7 @@ package com.daxueoo.shopnc.ui.activity;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
@@ -65,6 +66,32 @@ public class BaseActivity extends Activity {
             }
         }
         return false;
+    }
+
+    /**
+     * 节省内存的跳转方法
+     * @param classObj
+     */
+    public void forward(Class<?> classObj){
+        Intent intent = new Intent();
+        intent.setClass(this, classObj);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        this.startActivity(intent);
+        this.finish();
+    }
+
+    /**
+     * 节省内存。同上。
+     * @param classObj
+     * @param params
+     */
+    public void forward(Class<?> classObj,Bundle params){
+        Intent intent = new Intent();
+        intent.setClass(this, classObj);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        intent.putExtras(params);
+        this.startActivity(intent);
+        this.finish();
     }
 
 }

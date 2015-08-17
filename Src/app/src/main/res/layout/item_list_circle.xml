@@ -1,95 +1,63 @@
-<?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<RelativeLayout
+    android:id="@+id/rl_circle"
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/circlelist"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="horizontal">
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:paddingBottom="5dp"
+    android:paddingTop="5dp">
 
-    <LinearLayout
+    <ImageView
+        android:id="@+id/itemimageview"
+        android:layout_width="180dp"
+        android:layout_height="180dp"
+        android:background="@mipmap/ic_launcher"
+        android:scaleType="centerCrop"
+        />
+
+    <RelativeLayout
+        android:id="@+id/rl_text"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_weight="1">
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@id/itemimageview"
+        android:background="#70000000">
 
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
+        <TextView
+            android:id="@+id/tv_circle_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:gravity="center_vertical"
+            android:text="@string/app_name"
+            android:maxLines="1"
+            android:ellipsize="end"
+            android:textColor="@color/white"
+            />
 
-            <com.android.volley.toolbox.NetworkImageView
-                android:id="@+id/iv_left_image"
-                android:layout_width="80dp"
-                android:layout_height="80dp"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true"
-                android:layout_margin="10dp"
-                android:src="@mipmap/ic_launcher"/>
+        <TextView
+            android:id="@+id/tv_circle_desc"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:layout_below="@id/tv_circle_title"
+            android:ellipsize="end"
+            android:gravity="center_vertical"
+            android:maxLines="1"
+            android:text="@string/app_name"
+            android:textColor="@color/white"
+            />
 
-            <TextView
-                android:id="@+id/tv_left_title"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="5dp"
-                android:layout_toEndOf="@id/iv_left_image"
-                android:layout_toRightOf="@id/iv_left_image"
-                android:text="这是五个字"
-                android:textSize="15sp"/>
-
-            <TextView
-                android:id="@+id/tv_left_content"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/tv_left_title"
-                android:layout_margin="5dp"
-                android:layout_toEndOf="@id/iv_left_image"
-                android:layout_toRightOf="@id/iv_left_image"
-                android:text="@string/btn_login"
-                android:textSize="14sp"/>
-
-        </RelativeLayout>
+        <TextView
+            android:id="@+id/tv_circle_people"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="5dp"
+            android:layout_below="@id/tv_circle_desc"
+            android:gravity="center"
+            android:text="@string/app_name"
+            android:textColor="@color/white"/>
+    </RelativeLayout>
 
 
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_weight="1">
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <com.android.volley.toolbox.NetworkImageView
-                android:id="@+id/iv_right_image"
-                android:layout_width="80dp"
-                android:layout_height="80dp"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true"
-                android:layout_margin="10dp"
-                android:src="@mipmap/ic_launcher"/>
-
-            <TextView
-                android:id="@+id/tv_right_title"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="5dp"
-                android:layout_toEndOf="@id/iv_right_image"
-                android:layout_toRightOf="@id/iv_right_image"
-                android:text="这是五个字"
-                android:textSize="15sp"/>
-
-            <TextView
-                android:id="@+id/tv_right_content"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/tv_right_title"
-                android:layout_margin="5dp"
-                android:layout_toEndOf="@id/iv_right_image"
-                android:layout_toRightOf="@id/iv_right_image"
-                android:text="@string/btn_login"
-                android:textSize="14sp"/>
-
-        </RelativeLayout>
-
-    </LinearLayout>
-</LinearLayout>
+</RelativeLayout>  

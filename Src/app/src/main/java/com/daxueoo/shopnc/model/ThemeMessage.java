@@ -3,7 +3,7 @@ package com.daxueoo.shopnc.model;
 /**
  * Created by user on 15-8-6.
  */
-public class ThemeMessage {
+public class ThemeMessage extends BaseMessage {
     String author;
     String time;
     String head_icon_url;

@@ -1,65 +1,55 @@
 apply plugin: 'com.android.application'
 
 android {
-    //编译SDK的版本
     compileSdkVersion 22
-    //build tools的版本
     buildToolsVersion "22.0.1"
 
     defaultConfig {
-        //应用的包名
         applicationId "com.daxueoo.shopnc"
         minSdkVersion 15
         targetSdkVersion 22
-        versionCode 1
+        versionCode 2
         versionName "1.0"
     }
     buildTypes {
-        debug {
-            // 显示Log
-            buildConfigField "boolean", "LOG_DEBUG", "true"
-
-            versionNameSuffix "-debug"
-            minifyEnabled false
-            zipAlignEnabled false
-            shrinkResources false
-            signingConfig signingConfigs.debug
-        }
         release {
-            // 移除无用的resource文件
-            shrinkResources true
-            //是否就行混淆
             minifyEnabled false
-            //混淆文件的位置
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
 }
 
 ext {
-    //robobinding数据绑定
     robobindingVersion = 'latest.integration'
 }
 
+
+repositories {
+    mavenCentral()
+}
+
 dependencies {
-    //添加远程开源库
     compile('cn.trinea.android.view.autoscrollviewpager:android-auto-scroll-view-pager:1.1.2') {
         exclude module: 'support-v4'
     }
-
-    // 编译libs目录下的所有jar包
-    compile fileTree(dir: 'libs', include: ['*.jar'])
-
     compile fileTree(include: ['*.jar'], dir: 'libs')
-
+    //  下拉刷新
     compile 'in.srain.cube:ultra-ptr:1.0.10'
+    //  上拉加载
     compile 'in.srain.cube:cube-sdk:1.0.44@aar'
+    //  数据绑定
     compile "org.robobinding:robobinding:$robobindingVersion"
-    //支持的版本
-    compile 'com.android.support:appcompat-v7:22.2.1'
-    //引入volley的版本，添加远程开源库
+    //  AppV7兼容包
+    compile 'com.android.support:appcompat-v7:22.2.0'
+    //  Volley网络请求
     compile 'com.mcxiaoke.volley:library:1.0.18'
+    //  浮动按钮
     compile 'com.getbase:floatingactionbutton:1.10.0'
+    //  文本验证类
     compile 'com.andreabaccega:android-form-edittext:1.2.1@aar'
-    compile project(':library')
+    //  侧滑菜单
+    //  图片预览
+    compile 'com.github.chrisbanes.photoview:library:1.2.3'
+    //  zxing的核心jar
+    compile files('libs/core.jar')
 }

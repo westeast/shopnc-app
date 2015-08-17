@@ -1,5 +1,7 @@
 package com.daxueoo.shopnc.ui.fragment;
 
+import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -8,29 +10,30 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.LinearLayout;
-import android.widget.ListView;
 import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.daxueoo.shopnc.R;
 import com.daxueoo.shopnc.adapter.ImagePagerAdapter;
 import com.daxueoo.shopnc.adapter.TopicAdapter;
 import com.daxueoo.shopnc.model.TopicMessage;
-import com.daxueoo.shopnc.network.adapter.NormalPostRequest;
+import com.daxueoo.shopnc.scan.CaptureActivity;
+import com.daxueoo.shopnc.utils.ACache;
 import com.daxueoo.shopnc.utils.ConstUtils;
 import com.daxueoo.shopnc.utils.ListUtils;
 import com.daxueoo.shopnc.utils.SystemUtils;
+import com.daxueoo.shopnc.widgets.ForScrollViewListView;
 
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
@@ -41,15 +44,13 @@ import in.srain.cube.views.ptr.PtrClassicFrameLayout;
 import in.srain.cube.views.ptr.PtrDefaultHandler;
 import in.srain.cube.views.ptr.PtrFrameLayout;
 import in.srain.cube.views.ptr.PtrHandler;
-import in.srain.cube.views.loadmore.LoadMoreContainer;
-import in.srain.cube.views.loadmore.LoadMoreHandler;
 import in.srain.cube.views.loadmore.LoadMoreListViewContainer;
 
 /**
  * 这是首页的Fragment，主要有滚动图片，ListView，Button等
  */
 
-public class HomeFragment extends BaseFragment {
+public class HomeFragment extends BaseFragment implements View.OnClickListener {
 
     private String TAG = "HomeFragment";
 
@@ -60,29 +61,40 @@ public class HomeFragment extends BaseFragment {
     //  Header标题
     private TextView tv_title;
 
-    private ListView mListView;
+    private ForScrollViewListView listView;
 
     private List<TopicMessage> data = new ArrayList<TopicMessage>();
-    private TopicAdapter mAdapter;
+    private TopicAdapter topicAdapter;
 
     private PtrClassicFrameLayout mPtrFrame;
-    private ScrollView mScrollView;
+    private ScrollView scrollView;
     private LoadMoreListViewContainer loadMoreListViewContainer;
+
+    private LinearLayout ll_my_order;
+
+    private ACache aCache;
+    private boolean isFirst = true;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+
         View view = View.inflate(activity, R.layout.fragment_home, null);
+
         mPtrFrame = (PtrClassicFrameLayout) view.findViewById(R.id.rotate_header_web_view_frame);
         //  滚动图片
         viewPager = (AutoScrollViewPager) view.findViewById(R.id.view_pager);
 
         tv_title = (TextView) view.findViewById(R.id.titlebar_tv);
 
-        mListView = (ListView) view.findViewById(R.id.list_fragment_topic);
+        listView = (ForScrollViewListView) view.findViewById(R.id.list_fragment_topic);
 
-        mScrollView = (ScrollView) view.findViewById(R.id.scrollView);
+        scrollView = (ScrollView) view.findViewById(R.id.scrollView);
+        //  设置滚动到顶部
+        scrollView.smoothScrollTo(0, 0);
 
-        loadMoreListViewContainer = (LoadMoreListViewContainer) view.findViewById(R.id.load_more_list_view_container);
+        ll_my_order = (LinearLayout) view.findViewById(R.id.ll_my_order);
+
+//        loadMoreListViewContainer = (LoadMoreListViewContainer) view.findViewById(R.id.load_more_list_view_container);
 
         return view;
     }
@@ -92,16 +104,25 @@ public class HomeFragment extends BaseFragment {
         super.onViewCreated(view, savedInstanceState);
         tv_title.setText(R.string.tab_tv_index);
 
-        thread.start();
+        aCache = ACache.get(this.getActivity());
+        //  初始化按钮
+        initButton();
         //  初始化滚动图片
         initViewPager();
         //  初始化ListView，后期换成RecyclerView
         //  TODO    换成RecyclerView
         initListView();
-        //  初始化数据
-        initData();
+
+        if (isFirst) {
+            thread.start();
+            isFirst = false;
+            //  初始化数据
+            if (aCache.getAsJSONArray("themeList") != null) {
+                initData();
+            }
+        }
         //  设置ScrollView嵌套ListView的滚动问题
-        SystemUtils.setListViewHeightBasedOnChildren(mListView);
+
         //  初始化下拉刷新
         initPtr();
         //  初始化上拉加载
@@ -110,18 +131,26 @@ public class HomeFragment extends BaseFragment {
     }
 
     /**
+     * 初始化按钮
+     */
+    private void initButton() {
+        ll_my_order.setOnClickListener(this);
+    }
+
+    /**
      * 初始化加载更多
      */
     private void initLoadMore() {
-        //TODO 加载更多
-        // load more container
-        loadMoreListViewContainer.useDefaultHeader();
-        loadMoreListViewContainer.setLoadMoreHandler(new LoadMoreHandler() {
-            @Override
-            public void onLoadMore(LoadMoreContainer loadMoreContainer) {
-                //mDataModel.queryNextPage();
-            }
-        });
+
+//        //TODO 加载更多
+//        // load more container
+//        loadMoreListViewContainer.useDefaultHeader();
+//        loadMoreListViewContainer.setLoadMoreHandler(new LoadMoreHandler() {
+//            @Override
+//            public void onLoadMore(LoadMoreContainer loadMoreContainer) {
+//                //mDataModel.queryNextPage();
+//            }
+//        });
 
 //        // process data
 //        EventCenter.bindContainerAndHandler(this, new DemoSimpleEventHandler() {
@@ -152,7 +181,7 @@ public class HomeFragment extends BaseFragment {
         mPtrFrame.setPtrHandler(new PtrHandler() {
             @Override
             public boolean checkCanDoRefresh(PtrFrameLayout frame, View content, View header) {
-                return PtrDefaultHandler.checkContentCanBePulledDown(frame, mScrollView, header);
+                return PtrDefaultHandler.checkContentCanBePulledDown(frame, scrollView, header);
             }
 
             @Override
@@ -201,11 +230,19 @@ public class HomeFragment extends BaseFragment {
             switch (msg.what) {
                 case 0:
                     //  获取网络数据
-                    initOriginData();
-                    mAdapter.notifyDataSetChanged(); // 发送消息通知ListView更新
+                    if (aCache.getAsJSONArray("themeList") == null) {
+                        initOriginData();
+                    }
                     break;
                 case 1:
                     Log.e(TAG, "test");
+                    topicAdapter.notifyDataSetChanged(); // 发送消息通知ListView更新
+                    SystemUtils.setListViewHeightBasedOnChildren(listView);
+                    Toast.makeText(HomeFragment.this.getActivity(), "没有更多新数据了。。", Toast.LENGTH_LONG).show();
+                    break;
+                //  下拉刷新
+                case 2:
+                    //  获取最新数据
                     break;
                 default:
                     break;
@@ -223,7 +260,34 @@ public class HomeFragment extends BaseFragment {
             @Override
             public void onResponse(JSONObject obj) {
                 Log.e(TAG, obj.toString());
-                Toast.makeText(HomeFragment.this.getActivity(), "获取数据成功。", Toast.LENGTH_LONG).show();
+
+                try {
+                    JSONObject jsonObject = obj.getJSONObject("datas");
+                    JSONArray replyThemeList = jsonObject.getJSONArray("reply_themelist");
+                    //  缓存获取到的结果
+                    aCache.put("themeList", replyThemeList);
+                    for (int i = 0; i < replyThemeList.length(); i++) {
+                        JSONObject theme = replyThemeList.getJSONObject(i);
+                        String themeTitle = theme.getString("theme_name");
+                        String themeContent = theme.getString("theme_content");
+                        String themeName = theme.getString("member_name");
+                        String themeId = theme.getString("theme_id");
+                        TopicMessage msg = new TopicMessage(themeTitle, themeContent, themeName, "12小时前", "5条回复");
+                        if (i % 2 == 0) {
+                            msg.setIcon_url("");
+                        } else {
+                            msg.setIcon_url("http://ww1.sinaimg.cn/mw690/b03d2261gw1ev0qrv2xmgj20jt0df0vl.jpg");
+                        }
+                        msg.setTopic_user_icon("https://cdn.v2ex.co/avatar/7b5a/e206/89357_large.png");
+
+                        data.add(msg);
+                    }
+                    Log.e(TAG, data.toString());
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                handler.sendEmptyMessage(1);
+                //  Toast.makeText(HomeFragment.this.getActivity(), "获取数据成功。", Toast.LENGTH_LONG).show();
             }
         }, new Response.ErrorListener() {
             @Override
@@ -237,24 +301,40 @@ public class HomeFragment extends BaseFragment {
         requestQueue.start();
     }
 
-
     /**
      * ListView
      */
 
     private void initListView() {
-        mAdapter = new TopicAdapter(this.getActivity(), data);
-        mListView.setAdapter(mAdapter);
+        topicAdapter = new TopicAdapter(this.getActivity(), data);
+        listView.setAdapter(topicAdapter);
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Log.e(TAG, view.getTag().toString());
+//                Log.e(TAG, data.get((Integer) view.getTag()).getTopic_title());
+            }
+        });
     }
 
     /**
      * 初始化数据，从缓存里读入，ACache
      */
     private void initData() {
-        for (int i = 0; i < 10; i++) {
-            TopicMessage msg = new TopicMessage("标题", "这是一个内容,tv_views,tv_views,tv_views,tv_views,tv_views,tv_views", "独步清风", "12小时前", "5条回复");
-            msg.setIcon_url("http://pic1.nipic.com/2008-08-12/200881211331729_2.jpg");
-            data.add(msg);
+        JSONArray replyThemeList = aCache.getAsJSONArray("themeList");
+        for (int i = 0; i < replyThemeList.length(); i++) {
+            try {
+                JSONObject theme = replyThemeList.getJSONObject(i);
+                String themeTitle = theme.getString("theme_name");
+                String themeContent = theme.getString("theme_content");
+                String themeName = theme.getString("member_name");
+                TopicMessage msg = new TopicMessage(themeTitle, themeContent, themeName, "12小时前", "5条回复");
+                msg.setIcon_url("http://pic1.nipic.com/2008-08-12/200881211331729_2.jpg");
+                msg.setTopic_user_icon("https://cdn.v2ex.co/avatar/7b5a/e206/89357_large.png");
+                data.add(msg);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
         }
     }
 
@@ -280,6 +360,19 @@ public class HomeFragment extends BaseFragment {
         viewPager.setInterval(2000);
         viewPager.startAutoScroll();
         viewPager.setCurrentItem(Integer.MAX_VALUE / 2 - Integer.MAX_VALUE / 2 % ListUtils.getSize(imageIdList));
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.ll_my_order:
+                Intent intent = new Intent();
+                intent.setClass(HomeFragment.this.getActivity(), CaptureActivity.class);
+                startActivity(intent);
+                break;
+            case R.id.ll_my_trade:
+                break;
+        }
     }
 
     /**

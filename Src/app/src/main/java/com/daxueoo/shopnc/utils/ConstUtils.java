@@ -23,7 +23,7 @@ public class ConstUtils {
     public static final String URL_API_SHOPNC = "http://daxueoo.com:9091/api";
 
     //  用户登录地址
-    public static final String LOGIN_URL = URL_WAP_SHOPNC + "/index.php?act=login";
+    public static final String LOGIN_URL = URL_API_SHOPNC + "/index.php?act=login";
 
     //  用户注册地址
     public static final String REGISTER_URL = URL_WAP_SHOPNC + "/index.php?act=login&op=register";
@@ -33,5 +33,8 @@ public class ConstUtils {
 
     //  圈子热门话题
     public static final String HOT_THEME = CIRCLE_URL + "get_reply_themelist";
+
+    //  获取用户信息api
+    public static final String USER_PROFILES_API = URL_API_SHOPNC + "/index.php?act=user_center&op=user_info" ;
 
 }

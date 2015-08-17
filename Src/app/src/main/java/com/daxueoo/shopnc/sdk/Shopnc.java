@@ -5,11 +5,13 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.v7.app.AlertDialog;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.daxueoo.shopnc.R;
 import com.daxueoo.shopnc.network.adapter.NormalPostRequest;
@@ -33,6 +35,7 @@ public class Shopnc {
 
     /**
      * 判断是否登录的方法
+     *
      * @param context
      */
     public static void isLogin(final Context context) {
@@ -63,6 +66,7 @@ public class Shopnc {
 
     /**
      * 登录方法，返回信息
+     *
      * @param context
      * @param username
      * @param password
@@ -82,9 +86,14 @@ public class Shopnc {
                     JSONObject data = response.getJSONObject("datas");
                     String key = data.getString("key");
                     String username = data.getString("username");
+                    String uid = data.getString("uid");
 
                     SharedPreferencesUtils.setParam(context, "key", key);
                     SharedPreferencesUtils.setParam(context, "username", username);
+                    SharedPreferencesUtils.setParam(context, "uid", uid);
+                    //  获取用户信息
+                    getUserInfo(context, uid);
+
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -93,6 +102,7 @@ public class Shopnc {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
+                Toast.makeText(context, "登录失败" + error.getMessage(), Toast.LENGTH_SHORT).show();
                 Log.e(TAG, error.getMessage(), error);
             }
         }, map);
@@ -101,6 +111,7 @@ public class Shopnc {
 
     /**
      * 注册POST表单
+     *
      * @param context
      * @param username
      * @param password
@@ -137,5 +148,47 @@ public class Shopnc {
             }
         }, map);
         requestQueue.add(request);
+    }
+
+    /**
+     * 获取用户信息
+     *
+     * @param context
+     * @param uid
+     */
+    public static void getUserInfo(final Context context, String uid) {
+        Log.e(TAG, ConstUtils.USER_PROFILES_API + "&uid=" + uid);
+        RequestQueue requestQueue = Volley.newRequestQueue(context);
+        JsonObjectRequest objRequest = new JsonObjectRequest(ConstUtils.USER_PROFILES_API + "&uid=" + uid, null, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject obj) {
+
+                try {
+                    JSONObject jsonObject = obj.getJSONObject("datas");
+                    JSONObject userInfo = jsonObject.getJSONObject("user_info");
+                    Log.e(TAG, obj.toString());
+//                    getUserHeadIcon(context, obj.getString("avatar"));
+                    SharedPreferencesUtils.setParam(context, "points", obj.getString("member_points"));
+                    SharedPreferencesUtils.setParam(context, "email", obj.getString("member_email"));
+                    SharedPreferencesUtils.setParam(context, "desc", obj.getString("desc"));
+                    SharedPreferencesUtils.setParam(context, "icon_url", obj.getString("member_avatar"));
+                    SharedPreferencesUtils.setParam(context, "follower_count", obj.getString("follower_count"));
+                    SharedPreferencesUtils.setParam(context, "following_count", obj.getString("following_count"));
+
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(context, "获取用户信息失败" + error.getMessage(), Toast.LENGTH_LONG).show();
+                error.getMessage();
+            }
+
+        });
+        requestQueue.add(objRequest);
+        requestQueue.start();
     }
 }

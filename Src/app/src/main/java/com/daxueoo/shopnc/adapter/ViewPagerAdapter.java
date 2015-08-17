@@ -16,6 +16,7 @@ import android.widget.ImageView;
 
 import com.daxueoo.shopnc.R;
 import com.daxueoo.shopnc.ui.activity.MainTabActivity;
+import com.daxueoo.shopnc.utils.SharedPreferencesUtils;
 
 /**
  * 
@@ -68,9 +69,9 @@ public class ViewPagerAdapter extends PagerAdapter {
 	public Object instantiateItem(View arg0, int arg1) {
 		((ViewPager) arg0).addView(views.get(arg1), 0);
 		if (arg1 == views.size() - 1) {
-			ImageView mStartWeiboImageButton = (ImageView) arg0
+			ImageView startImageButton = (ImageView) arg0
 					.findViewById(R.id.iv_start_weibo);
-			mStartWeiboImageButton.setOnClickListener(new OnClickListener() {
+			startImageButton.setOnClickListener(new OnClickListener() {
 
 				@Override
 				public void onClick(View v) {
@@ -88,6 +89,7 @@ public class ViewPagerAdapter extends PagerAdapter {
 	private void goHome() {
 		// 跳转
 		Intent intent = new Intent(activity, MainTabActivity.class);
+		intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 		activity.startActivity(intent);
 		activity.finish();
 	}
@@ -97,13 +99,7 @@ public class ViewPagerAdapter extends PagerAdapter {
 	 * method desc：设置已经引导过了，下次启动不用再次引导
 	 */
 	private void setGuided() {
-		SharedPreferences preferences = activity.getSharedPreferences(
-				SHAREDPREFERENCES_NAME, Context.MODE_PRIVATE);
-		Editor editor = preferences.edit();
-		// 存入数据
-		editor.putBoolean("isFirstIn", false);
-		// 提交修改
-		editor.commit();
+		SharedPreferencesUtils.setParam(activity, "isFirst", false);
 	}
 
 	// 判断是否由对象生成界面

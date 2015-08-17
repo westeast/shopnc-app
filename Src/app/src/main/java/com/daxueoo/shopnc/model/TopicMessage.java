@@ -4,7 +4,7 @@ package com.daxueoo.shopnc.model;
  * 话题的模型类
  * Created by user on 15-8-2.
  */
-public class TopicMessage {
+public class TopicMessage extends BaseMessage {
 
     String icon_url;
     String topic_title;
@@ -12,9 +12,15 @@ public class TopicMessage {
     String topic_views;
     String topic_replies;
     String topic_time;
+    String topic_user_icon;
 
     public TopicMessage() {
 
+    }
+
+    @Override
+    public String toString() {
+        return this.topic_title + this.topic_content + this.topic_views + this.topic_replies + this.topic_time + this.icon_url;
     }
 
     public TopicMessage(String topic_title, String topic_content, String topic_views, String topic_time, String topic_replies) {
@@ -71,6 +77,14 @@ public class TopicMessage {
 
     public void setTopic_time(String topic_time) {
         this.topic_time = topic_time;
+    }
+
+    public String getTopic_user_icon() {
+        return topic_user_icon;
+    }
+
+    public void setTopic_user_icon(String topic_user_icon) {
+        this.topic_user_icon = topic_user_icon;
     }
 
 }

@@ -6,16 +6,32 @@
 
     <string name="just_now">Just now</string>
 
-    <!-- tab_tv-->
+    <!-- tab_tv底部选项卡的文字-->
     <string name="tab_tv_index">首页</string>
     <string name="tab_tv_mall">商城</string>
     <string name="tab_tv_circle">圈子</string>
-    <string name="tab_tv_trade">交易</string>
+    <string name="tab_tv_trade">资源</string>
     <string name="tab_tv_mine">我的</string>
 
+    <!-- 登录和注册页的按钮 -->
     <string name="btn_login">登录</string>
     <string name="btn_register">register</string>
-
+    
+    <!-- 我的界面的按钮文字 -->
+    <string name="btn_user_trade">我的交易</string>
+    <string name="btn_user_order">我的订单</string>
+    <string name="btn_user_send">我的发帖</string>
+    <string name="btn_user_posts">我的回帖</string>
+    <string name="btn_user_fav_goods">商品收藏</string>
+    <string name="btn_user_fav_serve">服务收藏</string>
+    <string name="btn_user_fav_trade">交易收藏</string>
+    
+    <!-- 首页界面的按钮文字 -->
+    <string name="btn_home_serve">服务</string>
+    <string name="btn_home_my_message">我的消息</string>
+    <string name="btn_home_load_more">发现更多</string>
+    
+    <!-- -->
     <string name="et_text_username">请输入用户名</string>
     <string name="et_text_password">请输入密码</string>
     <string name="et_text_email">请输入邮箱</string>
@@ -27,6 +43,23 @@
 
     <string name="tv_setting">设置</string>
 
+    <!-- 侧滑 -->
+    <string-array name="planets_array">
+        <item>Mercury</item>
+        <item>Venus</item>
+        <item>Earth</item>
+        <item>Mars</item>
+        <item>Jupiter</item>
+        <item>Saturn</item>
+        <item>Uranus</item>
+        <item>Neptune</item>
+    </string-array>
+    <string name="drawer_open">Open navigation drawer</string>
+    <string name="drawer_close">Close navigation drawer</string>
+
     <string name="network_fail">网络错误</string>
-    
+
+    <!-- Zxing -->
+    <string name="scan">扫描</string>
+
 </resources>

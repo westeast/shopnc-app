@@ -70,7 +70,7 @@ public class MainTabActivity extends FragmentActivity {
                     case R.id.rb_mall:
                         //  跳转到WebViewActivity
                         toWebViewActivity();
-                        //  mTabHost.setCurrentTab(1);
+                        //  fragmentTabHost.setCurrentTab(1);
                         break;
                     //  圈子
                     case R.id.rb_circle:
@@ -101,6 +101,7 @@ public class MainTabActivity extends FragmentActivity {
     private void toWebViewActivity() {
         Intent intent = new Intent();
         intent.setClass(MainTabActivity.this, WebViewActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         intent.putExtra("url", ConstUtils.URL_WAP_SHOPNC);
         intent.putExtra("type", ConstUtils.WEB_TYPE_MALL);
         startActivity(intent);

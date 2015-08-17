@@ -5,7 +5,7 @@ import java.io.Serializable;
 /**
  * Created by user on 15-8-3.
  */
-public class UserMessage implements Serializable {
+public class UserMessage extends BaseMessage implements Serializable {
     public String getId() {
         return id;
     }

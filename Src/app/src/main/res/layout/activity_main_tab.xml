@@ -55,13 +55,13 @@
         <RadioButton
             android:id="@+id/rb_circle"
             style="@style/RadioButtonBottomTab"
-            android:drawableTop="@drawable/icon_square"
+            android:drawableTop="@drawable/icon_circle"
             android:text="@string/tab_tv_circle"/>
 
         <RadioButton
             android:id="@+id/rb_trade"
             style="@style/RadioButtonBottomTab"
-            android:drawableTop="@drawable/icon_square"
+            android:drawableTop="@drawable/icon_trade"
             android:text="@string/tab_tv_trade"/>
 
         <RadioButton

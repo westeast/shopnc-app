@@ -18,8 +18,8 @@ import java.util.List;
  * Created by user on 15-8-12.
  */
 public class GuideActivity extends BaseActivity implements ViewPager.OnPageChangeListener {
-    private ViewPager vp;
-    private ViewPagerAdapter vpAdapter;
+    private ViewPager viewPager;
+    private ViewPagerAdapter viewPagerAdapter;
     private List<View> views;
 
     // 底部小点图片
@@ -53,14 +53,15 @@ public class GuideActivity extends BaseActivity implements ViewPager.OnPageChang
         views.add(inflater.inflate(R.layout.guide_two, null));
         views.add(inflater.inflate(R.layout.guide_three, null));
         views.add(inflater.inflate(R.layout.guide_four, null));
+        views.add(inflater.inflate(R.layout.guide_five, null));
 
         //  初始化Adapter
-        vpAdapter = new ViewPagerAdapter(views, this);
+        viewPagerAdapter = new ViewPagerAdapter(views, this);
 
-        vp = (ViewPager) findViewById(R.id.viewpager);
-        vp.setAdapter(vpAdapter);
+        viewPager = (ViewPager) findViewById(R.id.viewpager);
+        viewPager.setAdapter(viewPagerAdapter);
         //  绑定回调
-        vp.addOnPageChangeListener(this);
+        viewPager.addOnPageChangeListener(this);
     }
 
     /**
@@ -81,9 +82,12 @@ public class GuideActivity extends BaseActivity implements ViewPager.OnPageChang
         dots[currentIndex].setEnabled(false);// 设置为白色，即选中状态
     }
 
+    /**
+     * 设定小点的选定状态
+     * @param position
+     */
     private void setCurrentDot(int position) {
-        if (position < 0 || position > views.size() - 1
-                || currentIndex == position) {
+        if (position < 0 || position > views.size() - 1 || currentIndex == position) {
             return;
         }
 
@@ -95,6 +99,7 @@ public class GuideActivity extends BaseActivity implements ViewPager.OnPageChang
 
     /**
      * 当滑动状态改变时调用
+     *
      * @param arg0
      */
     @Override
@@ -103,6 +108,7 @@ public class GuideActivity extends BaseActivity implements ViewPager.OnPageChang
 
     /**
      * 当当前页面被滑动时调用
+     *
      * @param arg0
      * @param arg1
      * @param arg2
@@ -113,6 +119,7 @@ public class GuideActivity extends BaseActivity implements ViewPager.OnPageChang
 
     /**
      * 当新的页面被选中时调用
+     *
      * @param arg0
      */
     @Override

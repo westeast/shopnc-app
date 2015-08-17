@@ -25,7 +25,6 @@ public class LoginActivity extends BaseActivity {
     private FormEditText et_password;
     private Button btn_login;
     private String TAG = "LoginActivity";
-    private TextView tv_title;
     private TextView tv_register;
 
     @Override
@@ -37,7 +36,6 @@ public class LoginActivity extends BaseActivity {
     }
 
     private void initView() {
-        tv_title.setText(R.string.btn_login);
         btn_login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -83,7 +81,6 @@ public class LoginActivity extends BaseActivity {
         et_username = (FormEditText) findViewById(R.id.et_username);
         et_password = (FormEditText) findViewById(R.id.et_password);
 
-        tv_title = (TextView) findViewById(R.id.titlebar_tv);
         tv_register = (TextView) findViewById(R.id.tv_register);
         btn_login = (Button) findViewById(R.id.btn_login);
     }

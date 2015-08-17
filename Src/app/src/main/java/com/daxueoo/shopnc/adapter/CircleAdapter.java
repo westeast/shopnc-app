@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -65,57 +66,44 @@ public class CircleAdapter extends BaseAdapter {
 
             convertView = LayoutInflater.from(mContext).inflate(R.layout.item_list_circle, parent, false);
             holder = new ViewHolder();
-            holder.circlelist = (LinearLayout) convertView.findViewById(R.id.circlelist);
+            holder.relativeLayout = (RelativeLayout) convertView.findViewById(R.id.rl_circle);
 
-            holder.tv_left_title = (TextView) convertView.findViewById(R.id.tv_left_title);
-            holder.tv_left_content = (TextView) convertView.findViewById(R.id.tv_left_content);
-            holder.tv_right_title = (TextView) convertView.findViewById(R.id.tv_right_title);
-            holder.tv_right_content = (TextView) convertView.findViewById(R.id.tv_right_content);
+            holder.rl_text = (RelativeLayout) convertView.findViewById(R.id.rl_text);
+            holder.circle_title = (TextView) convertView.findViewById(R.id.tv_circle_title);
+            holder.circle_desc = (TextView) convertView.findViewById(R.id.tv_circle_desc);
+            holder.circle_people = (TextView) convertView.findViewById(R.id.tv_circle_people);
 
-            holder.iv_left_pic = (NetworkImageView) convertView.findViewById(R.id.iv_left_image);
-            holder.iv_right_pic = (NetworkImageView) convertView.findViewById(R.id.iv_right_image);
+            holder.iv_circle = (ImageView) convertView.findViewById(R.id.itemimageview);
 
             convertView.setTag(holder);
-        } else {// 直接获得ViewHolder
+        } else {//  直接获得ViewHolder
             holder = (ViewHolder) convertView.getTag();
         }
 
         CircleMessage msg = data.get(position);
 
-        holder.tv_left_title.setText(msg.getLeft_title());
-        holder.tv_left_content.setText(msg.getLeft_content());
-        holder.tv_right_title.setText(msg.getRight_title());
-        holder.tv_right_content.setText(msg.getRight_content());
+        holder.circle_title.setText(msg.getTitle());
+        holder.circle_desc.setText(msg.getContent());
+        holder.circle_people.setText(msg.getPeople());
 
-        if (msg.getLeft_url() == null && msg.getLeft_url().equals("")) {
-            holder.iv_left_pic.setImageResource(R.mipmap.ic_launcher);
-        } else {
-            holder.iv_left_pic.setDefaultImageResId(android.R.drawable.ic_menu_rotate);
-            holder.iv_left_pic.setErrorImageResId(R.mipmap.ic_launcher);
-            holder.iv_left_pic.setImageUrl(msg.getLeft_url(), mImageLoader);
-        }
+        holder.iv_circle.setImageResource(R.drawable.test_circle);
+        holder.rl_text.setAlpha(155);
 
-        if (msg.getRight_url() == null && msg.getRight_url().equals("")) {
-            holder.iv_right_pic.setImageResource(R.mipmap.ic_launcher);
-        } else {
-            holder.iv_right_pic.setDefaultImageResId(android.R.drawable.ic_menu_rotate);
-            holder.iv_right_pic.setErrorImageResId(R.mipmap.ic_launcher);
-            holder.iv_right_pic.setImageUrl(msg.getRight_url(), mImageLoader);
-        }
+//        holder.iv_circle.setImageAlpha(155);
+//        holder.iv_circle.setAlpha(155);
 
         return convertView;
     }
 
     static class ViewHolder {
 
-        LinearLayout circlelist;
-        TextView tv_left_title;
-        TextView tv_left_content;
-        TextView tv_right_title;
-        TextView tv_right_content;
+        RelativeLayout relativeLayout;
+        RelativeLayout rl_text;
+        TextView circle_title;
+        TextView circle_desc;
+        TextView circle_people;
 
-        NetworkImageView iv_left_pic;
-        NetworkImageView iv_right_pic;
+        ImageView iv_circle;
     }
 
 }

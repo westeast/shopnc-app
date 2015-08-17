@@ -5,12 +5,14 @@ package com.daxueoo.shopnc.adapter;
  */
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.ImageLoader;
@@ -18,8 +20,11 @@ import com.android.volley.toolbox.NetworkImageView;
 import com.android.volley.toolbox.Volley;
 import com.daxueoo.shopnc.R;
 import com.daxueoo.shopnc.model.TopicMessage;
+import com.daxueoo.shopnc.ui.activity.ImagePreviewActivity;
+import com.daxueoo.shopnc.ui.activity.ThemeDetailActivity;
 import com.daxueoo.shopnc.utils.BitmapCache;
 import com.daxueoo.shopnc.widgets.RelativeTimeTextView;
+import com.daxueoo.shopnc.widgets.RoundedImageView;
 
 import java.util.List;
 
@@ -74,29 +79,91 @@ public class TopicAdapter extends BaseAdapter {
 
             holder.iv_head_icon = (NetworkImageView) convertView.findViewById(R.id.iv_topic_head);
 
+            holder.iv_head_user_icon = (RoundedImageView) convertView.findViewById(R.id.iv_topic_user_head);
+
             holder.tv_views = (TextView) convertView.findViewById(R.id.tv_topic_views);
-            holder.tv_time = (RelativeTimeTextView) convertView.findViewById(R.id.tv_topic_time);
-            holder.tv_replies = (TextView) convertView.findViewById(R.id.tv_topic_replies);
 
             convertView.setTag(holder);
         } else {// 直接获得ViewHolder
             holder = (ViewHolder) convertView.getTag();
         }
 
-        TopicMessage msg = data.get(position);
+        final TopicMessage msg = data.get(position);
 
         holder.tv_title.setText(msg.getTopic_title());
         holder.tv_desc.setText(msg.getTopic_content());
         holder.tv_views.setText(msg.getTopic_views());
-        holder.tv_time.setText(msg.getTopic_time());
-        holder.tv_replies.setText(msg.getTopic_replies());
 
-        if (msg.getIcon_url() == null && msg.getIcon_url().equals("")) {
-            holder.iv_head_icon.setImageResource(R.mipmap.ic_launcher);
+        //  图片的点击事件
+        holder.iv_head_icon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent();
+                intent.setClass(mContext, ImagePreviewActivity.class);
+                intent.putExtra("pic_url", msg.getIcon_url());
+                mContext.startActivity(intent);
+            }
+        });
+
+        //  标题的点击事件
+        holder.tv_title.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent();
+                intent.setClass(mContext, ThemeDetailActivity.class);
+                mContext.startActivity(intent);
+                Toast.makeText(mContext, msg.getTopic_title(), Toast.LENGTH_LONG).show();
+            }
+        });
+
+        //  内容的点击事件，和标题同理
+        holder.tv_desc.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent();
+                intent.setClass(mContext, ThemeDetailActivity.class);
+                mContext.startActivity(intent);
+                Toast.makeText(mContext, msg.getTopic_content(), Toast.LENGTH_LONG).show();
+            }
+        });
+
+        //  用户头像的点击事件
+        holder.iv_head_user_icon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent();
+                intent.setClass(mContext, ThemeDetailActivity.class);
+                mContext.startActivity(intent);
+                Toast.makeText(mContext, msg.getTopic_user_icon(), Toast.LENGTH_LONG).show();
+            }
+        });
+
+        //  用户昵称的点击事件，和头像同理
+        holder.tv_views.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent();
+                intent.setClass(mContext, ThemeDetailActivity.class);
+                mContext.startActivity(intent);
+                Toast.makeText(mContext, msg.getTopic_views(), Toast.LENGTH_LONG).show();
+            }
+        });
+
+        if (msg.getIcon_url() == null || msg.getIcon_url().equals("")) {
+            holder.iv_head_icon.setVisibility(View.GONE);
         } else {
             holder.iv_head_icon.setDefaultImageResId(android.R.drawable.ic_menu_rotate);
             holder.iv_head_icon.setErrorImageResId(R.mipmap.ic_launcher);
             holder.iv_head_icon.setImageUrl(msg.getIcon_url(), mImageLoader);
+        }
+
+        if (msg.getTopic_user_icon() == null || msg.getTopic_user_icon().equals("")) {
+            holder.iv_head_user_icon.setVisibility(View.GONE);
+        } else {
+            RequestQueue mQueue = Volley.newRequestQueue(mContext);
+            ImageLoader imageLoader = new ImageLoader(mQueue, new BitmapCache());
+            ImageLoader.ImageListener listener = ImageLoader.getImageListener(holder.iv_head_user_icon, android.R.drawable.ic_menu_rotate, R.mipmap.ic_launcher);
+            imageLoader.get(msg.getTopic_user_icon(), listener);
         }
 
         return convertView;
@@ -105,12 +172,17 @@ public class TopicAdapter extends BaseAdapter {
     static class ViewHolder {
 
         RelativeLayout topiclist;
+        //  标题
         TextView tv_title;
+        //  内容
         TextView tv_desc;
+        //  昵称
         TextView tv_views;
-        TextView tv_replies;
-        RelativeTimeTextView tv_time;
+
+        //  配图
         NetworkImageView iv_head_icon;
+        //  用户头像
+        RoundedImageView iv_head_user_icon;
     }
 
 }

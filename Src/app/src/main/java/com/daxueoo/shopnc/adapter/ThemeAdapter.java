@@ -76,7 +76,6 @@ public class ThemeAdapter extends BaseAdapter {
 
             holder.tv_views = (TextView) convertView.findViewById(R.id.tv_topic_views);
             holder.tv_time = (RelativeTimeTextView) convertView.findViewById(R.id.tv_topic_time);
-            holder.tv_replies = (TextView) convertView.findViewById(R.id.tv_topic_replies);
 
             convertView.setTag(holder);
         } else {// 直接获得ViewHolder
@@ -91,8 +90,8 @@ public class ThemeAdapter extends BaseAdapter {
         holder.tv_time.setText(msg.getTopic_time());
         holder.tv_replies.setText(msg.getTopic_replies());
 
-        if (msg.getIcon_url() == null && msg.getIcon_url().equals("")) {
-            holder.iv_head_icon.setImageResource(R.mipmap.ic_launcher);
+        if (msg.getIcon_url() == null || msg.getIcon_url().equals("")) {
+            holder.iv_head_icon.setVisibility(View.GONE);
         } else {
             holder.iv_head_icon.setDefaultImageResId(android.R.drawable.ic_menu_rotate);
             holder.iv_head_icon.setErrorImageResId(R.mipmap.ic_launcher);

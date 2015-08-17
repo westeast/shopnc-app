@@ -17,8 +17,6 @@ import com.daxueoo.shopnc.utils.SharedPreferencesUtils;
  */
 public class SplashActivity extends BaseActivity {
 
-    Boolean isFirst = true;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,19 +36,12 @@ public class SplashActivity extends BaseActivity {
             @Override
             public void onAnimationEnd(Animation arg0) {
 
-                Intent intent = new Intent();
-
-                //  是否是第一次进行跳转
-                if ((Boolean) SharedPreferencesUtils.getParam(SplashActivity.this, "isFirst", isFirst)) {
-                    intent.setClass(SplashActivity.this, GuideActivity.class);
-                    isFirst = false;
-                    SharedPreferencesUtils.setParam(SplashActivity.this, "isFirst", isFirst);
+                if ((Boolean) SharedPreferencesUtils.getParam(SplashActivity.this, "isFirst", true)) {
+                    forward(GuideActivity.class);
                 } else {
-                    intent = new Intent(SplashActivity.this, MainTabActivity.class);
+                    forward(MainTabActivity.class);
                 }
 
-                startActivity(intent);
-                finish();
             }
 
             @Override

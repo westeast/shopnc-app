@@ -3,70 +3,53 @@ package com.daxueoo.shopnc.model;
 import com.daxueoo.shopnc.ui.fragment.CircleFragment;
 
 /**
+ * 圈子界面
  * Created by user on 15-8-4.
  */
-public class CircleMessage {
-    String left_url;
-    String left_title;
-    String left_content;
-    String right_url;
-    String right_title;
-    String right_content;
+public class CircleMessage extends BaseMessage {
 
-    public CircleMessage(String left_url, String left_title, String left_content, String right_url, String right_title, String right_content) {
-        this.left_url = left_url;
-        this.left_title = left_title;
-        this.left_content = left_content;
-        this.right_url = right_url;
-        this.right_title = right_title;
-        this.right_content = right_content;
+
+    String url;
+    String title;
+    String content;
+    String people;
+
+    public CircleMessage(String url, String title, String content, String people) {
+        this.url = url;
+        this.title = title;
+        this.content = content;
+        this.people = people;
     }
 
-    public String getLeft_url() {
-        return left_url;
+    public String getTitle() {
+        return title;
     }
 
-    public void setLeft_url(String left_url) {
-        this.left_url = left_url;
+    public void setTitle(String title) {
+        this.title = title;
     }
 
-    public String getLeft_title() {
-        return left_title;
+    public String getUrl() {
+        return url;
     }
 
-    public void setLeft_title(String left_title) {
-        this.left_title = left_title;
+    public void setUrl(String url) {
+        this.url = url;
     }
 
-    public String getLeft_content() {
-        return left_content;
+    public String getContent() {
+        return content;
     }
 
-    public void setLeft_content(String left_content) {
-        this.left_content = left_content;
+    public void setContent(String content) {
+        this.content = content;
     }
 
-    public String getRight_url() {
-        return right_url;
+    public String getPeople() {
+        return people;
     }
 
-    public void setRight_url(String right_url) {
-        this.right_url = right_url;
-    }
-
-    public String getRight_title() {
-        return right_title;
-    }
-
-    public void setRight_title(String right_title) {
-        this.right_title = right_title;
-    }
-
-    public String getRight_content() {
-        return right_content;
-    }
-
-    public void setRight_content(String right_content) {
-        this.right_content = right_content;
+    public void setPeople(String people) {
+        this.people = people;
     }
 }
